@@ -5,13 +5,6 @@ const useEval = () => {
     const [evalDisplay, setEvalDisplay] = useState(0)
     const [inputDisplay, setInputDisplay] = useState(0)
 
-    // const initialState = {
-    //     evalDisplay: '',
-    //     inputDispay: {}
-    // }
-    // const [display, setDisplay] = useState(initialState)
-    // const {evalDisplay, inputDispay} = display
-
     //Calcular Operacion
     const changeEvalDisplay = (data) => {
         setEvalDisplay(evalDisplay + data)
@@ -32,7 +25,6 @@ const useEval = () => {
 
     //Evaluar el display
     const setTotal = (data) => {
-
         let x = evalDisplay + inputDisplay
         //setEvalDisplay((previusState) => previusState + inputDisplay)
         setEvalDisplay(eval(x))

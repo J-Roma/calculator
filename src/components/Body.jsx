@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+//import css from 'styled-components'
+
 import useEval from '../hooks/useEval'
 
 const Display = styled.div`
@@ -43,7 +45,7 @@ const CalculatorKeys = styled.div`
     padding: 20px;
 `
 
-const Button = styled.div`
+const Button = styled.button`
     text-align: center;
     height: 60px;
     background-color: #fff;
@@ -51,29 +53,33 @@ const Button = styled.div`
     border: 1px solid #c4c4c4;
     background-color: transparent;
     font-size: 2rem;
-    color: #333;
+    //color: #333;
+    color: ${props => props.operator ? `#337cac` : `#333`};
+    ${props => props.equalsing && `
+        background-color: #2e86c0;
+        border-color: #337cac;
+        color: #fff;
+        height: 100%;
+        grid-area: 2 / 4 / 6 / 5;
+    `};
+    ${props => props.allclear && `
+        background-color: #f0595f;
+        border-color: #b0353a;
+        color: #fff;
+    `};
     background-image: linear-gradient(to bottom,transparent,transparent 50%,rgba(0,0,0,.04));
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), inset 0 1px 0 0 rgba(255,255,255,.45), inset 0 -1px 0 0 rgba(255,255,255,.15), 0 1px 0 0 rgba(255,255,255,.15);
     text-shadow: 0 1px rgba(255,255,255,.4);
-    :hover{
-      background: #eaeaea;
-  }
+    &:hover{
+        background: #eaeaea;
+    }
 `
 
 const Body = () => {
 
     const [evalDisplay, inputDisplay, handleInputDisplay, changeEvalDisplay, setTotal, resetDisplay] = useEval();
+    
     const handleClick = (e) => {
-        //changeEvalDisplay(e.target.attributes.value.nodeValue)
-        // let x= e.target.attributes.value.nodeValue;
-        // if (x === '*'|| x === '/' || x === '-' || x === '+') {
-        //     if (inputDispay !== 0) {
-        //         evalDisplay != 0 ? changeEvalDisplay(evalDisplay + x): changeEvalDisplay(inputDispay + x)
-        //         handleInputDisplay(0)
-        //     }
-        // }else{
-        //     inputDispay === 0 ? handleInputDisplay(x): setInputDisplay(inputDispay + x)
-        // }
         handleInputDisplay(e.target.attributes.value.nodeValue)
     }
 
@@ -90,26 +96,25 @@ const Body = () => {
             <Keys>
                 <div>
                     <CalculatorKeys classNameName="calculator-keys">
-                        <Button id="+" type="Button" className="operator" value="+" onClick={handleClick}>+</Button>
-                        <Button onClick={handleClick} className="operator" id="subtract" type="Button" value="-">-</Button>
-                        <Button onClick={handleClick} className="operator" id="multiply" type="Button" value="*">&times;</Button>
-                        <Button onClick={handleClick} className="operator" id="divide" type="Button" value="/">&divide;</Button>
+                        <Button id="+" type="Button" operator value="+" onClick={handleClick}>+</Button>
+                        <Button onClick={handleClick} operator id="subtract" type="Button" value="-">-</Button>
+                        <Button onClick={handleClick} operator id="multiply" type="Button" value="*">&times;</Button>
+                        <Button onClick={handleClick} operator id="divide" type="Button" value="/">&divide;</Button>
 
-                        <Button onClick={handleClick} id="one" type="Button" value="1" >1</Button>
-                        <Button onClick={handleClick} id="two" type="Button" value="2">2</Button>
-                        <Button onClick={handleClick} id="three" type="Button" value="3">3</Button>
-                        <Button onClick={handleClick} id="four" type="Button" value="4">4</Button>
-                        <Button onClick={handleClick} id="five" type="Button" value="5">5</Button>
-                        <Button onClick={handleClick} id="six" type="Button" value="6">6</Button>
                         <Button onClick={handleClick} id="seven" type="Button" value="7">7</Button>
                         <Button onClick={handleClick} id="eight" type="Button" value="8">8</Button>
                         <Button onClick={handleClick} id="nine" type="Button" value="9">9</Button>
-
+                        <Button onClick={handleClick} id="four" type="Button" value="4">4</Button>
+                        <Button onClick={handleClick} id="five" type="Button" value="5">5</Button>
+                        <Button onClick={handleClick} id="six" type="Button" value="6">6</Button>
+                        <Button onClick={handleClick} id="one" type="Button" value="1" >1</Button>
+                        <Button onClick={handleClick} id="two" type="Button" value="2">2</Button>
+                        <Button onClick={handleClick} id="three" type="Button" value="3">3</Button>
                         <Button onClick={handleClick} id="zero" type="Button" value="0">0</Button>
                         <Button onClick={handleClick} className="decimal" id="decimal" type="Button" value=".">.</Button>
-                        <Button onClick={resetDisplay} className="all-clear" id="clear" type="Button" equal="all-clear" value="all-clear">AC</Button>
+                        <Button onClick={resetDisplay} allclear id="clear" type="Button" equal="all-clear" value="all-clear">AC</Button>
 
-                        <Button onClick={excOperation} className="equal-sing" id="equals" type="Button" equal="equal-sign" value="=">=</Button>
+                        <Button onClick={excOperation} equalsing id="equals" type="Button" equal="equal-sign" value="=">=</Button>
 
                     </CalculatorKeys>
                 </div>
