@@ -13,8 +13,7 @@ const Container = styled.div`
 
 const Calculadora = () => {
     return (
-        <Container>
-            <Displays/>
+        <Container>            
             <Body/>
         </Container>
     )

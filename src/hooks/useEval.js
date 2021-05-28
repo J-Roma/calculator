@@ -2,34 +2,57 @@ import {useState} from 'react'
 
 const useEval = () => {
     
-    const initialState = {
-        evalDisplay: '',
-        inputDispay: ''
-    }
-    const [display, setDisplay] = useState(initialState)
-    const {evalDisplay, inputDispay} = display
+    const [evalDisplay, setEvalDisplay] = useState(0)
+    const [inputDisplay, setInputDisplay] = useState(0)
+
+    // const initialState = {
+    //     evalDisplay: '',
+    //     inputDispay: {}
+    // }
+    // const [display, setDisplay] = useState(initialState)
+    // const {evalDisplay, inputDispay} = display
 
     //Calcular Operacion
     const changeEvalDisplay = (data) => {
-        setDisplay({
-            ...display,
-            evalDisplay: [...evalDisplay, data]
-        })
+        setEvalDisplay(evalDisplay + data)
     }
     //Mostrar Display2
     const handleInputDisplay = (data) => { 
-        setDisplay({
-            ...display,
-            inputDisplay: [...inputDispay, data]
-        })
+        //setInputDisplay(inputDispay + data)
+        //(data === '*'|| data === '/') && setInputDisplay(inputDispay + 'El operado')
+        if (data === '*'|| data === '/' || data === '-' || data === '+') {
+            if (inputDisplay != 0) {
+                evalDisplay == 0 ? setEvalDisplay(inputDisplay + data): setEvalDisplay((previusState) => previusState + inputDisplay + data)
+                setInputDisplay(0)
+            }
+        }else{
+            inputDisplay === 0 ? setInputDisplay(data): setInputDisplay(inputDisplay + data)
+        }
+    }
 
+    //Evaluar el display
+    const setTotal = (data) => {
+
+        let x = evalDisplay + inputDisplay
+        //setEvalDisplay((previusState) => previusState + inputDisplay)
+        setEvalDisplay(eval(x))
     }
     // Reset Display Operation
     const resetDisplay = () => {
-        setDisplay(initialState)
+        setEvalDisplay(0)
+        setInputDisplay(0)
     }
 
-    return [evalDisplay, inputDispay, handleInputDisplay, changeEvalDisplay, resetDisplay]
+
+
+    return [
+        evalDisplay,
+        inputDisplay,
+        handleInputDisplay,
+        changeEvalDisplay,
+        setTotal,
+        resetDisplay
+    ]
 }
 
 export default useEval

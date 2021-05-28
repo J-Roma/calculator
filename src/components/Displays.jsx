@@ -31,11 +31,12 @@ const Displays = () => {
 
     const [evalDisplay, inputDisplay] = useEval();
 
+
     return (
         <Display>
             <H3Style id="display">{evalDisplay}</H3Style>
             <hr />
-            <H3Style>{inputDisplay}</H3Style>
+            <H3Style>{'inputDisplay'}</H3Style>
         </Display>
     )
 }

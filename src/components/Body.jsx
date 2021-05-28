@@ -2,6 +2,32 @@ import React from 'react'
 import styled from 'styled-components'
 import useEval from '../hooks/useEval'
 
+const Display = styled.div`
+    text-align: end;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 3px;
+    width: 400px;
+    height: 20%;
+    background: white;
+    border-radius: 4px;
+    background-image: repeating-linear-gradient(to right,
+    #c4e17f 0px, #c4e17f 50px,
+    #f7fdca 50px, #f7fdca 100px,
+    #fad071 100px, #fad071 150px,
+    #f0766b 150px, #f0766b 200px,
+    #db9dbe 200px, #db9dbe 250px,
+    #c49cdf 250px, #c49cdf 300px,
+    #6599e2 300px, #6599e2 350px,
+    #61c2e4 350px, #61c2e4 400px);
+    background-size: 100% 10px;
+    background-repeat:no-repeat;
+`
+
+const H3Style = styled.h3`
+    margin-right: 25px;
+`
+
 const Keys = styled.div`
     width: 92%;
     height: 70%;
@@ -36,40 +62,59 @@ const Button = styled.div`
 
 const Body = () => {
 
-    const [handleInputDisplay] = useEval();
-
+    const [evalDisplay, inputDisplay, handleInputDisplay, changeEvalDisplay, setTotal, resetDisplay] = useEval();
     const handleClick = (e) => {
-        handleInputDisplay('hola')
-        console.log(e.target.attributes.value.nodeValue);
+        //changeEvalDisplay(e.target.attributes.value.nodeValue)
+        // let x= e.target.attributes.value.nodeValue;
+        // if (x === '*'|| x === '/' || x === '-' || x === '+') {
+        //     if (inputDispay !== 0) {
+        //         evalDisplay != 0 ? changeEvalDisplay(evalDisplay + x): changeEvalDisplay(inputDispay + x)
+        //         handleInputDisplay(0)
+        //     }
+        // }else{
+        //     inputDispay === 0 ? handleInputDisplay(x): setInputDisplay(inputDispay + x)
+        // }
+        handleInputDisplay(e.target.attributes.value.nodeValue)
+    }
+
+    const excOperation = (e) => {
+        setTotal(e.target.attributes.value.nodeValue)
     }
     return (
-        <Keys>
-            <div>
-                <CalculatorKeys className="calculator-keys">
-                    <Button id="+" type="Button" value="+" onClick={handleClick}>+</Button>
-                    <Button onClick={handleClick} id="subtract" type="Button" value="-">-</Button>
-                    <Button onClick={handleClick} id="multiply" type="Button" value="*">&times;</Button>
-                    <Button onClick={handleClick} id="divide" type="Button" value="/">&divide;</Button>
+        <>
+            <Display>
+                <H3Style id="display">{evalDisplay}</H3Style>
+                <hr />
+                <H3Style>{inputDisplay}</H3Style>
+            </Display>
+            <Keys>
+                <div>
+                    <CalculatorKeys classNameName="calculator-keys">
+                        <Button id="+" type="Button" className="operator" value="+" onClick={handleClick}>+</Button>
+                        <Button onClick={handleClick} className="operator" id="subtract" type="Button" value="-">-</Button>
+                        <Button onClick={handleClick} className="operator" id="multiply" type="Button" value="*">&times;</Button>
+                        <Button onClick={handleClick} className="operator" id="divide" type="Button" value="/">&divide;</Button>
 
-                    <Button onClick={handleClick} id="one" type="Button" value="1" >1</Button>
-                    <Button onClick={handleClick} id="two" type="Button" value="2">2</Button>
-                    <Button onClick={handleClick} id="three" type="Button" value="3">3</Button>
-                    <Button onClick={handleClick} id="four" type="Button" value="4">4</Button>
-                    <Button onClick={handleClick} id="five" type="Button" value="5">5</Button>
-                    <Button onClick={handleClick} id="six" type="Button" value="6">6</Button>
-                    <Button onClick={handleClick} id="seven" type="Button" value="7">7</Button>
-                    <Button onClick={handleClick} id="eight" type="Button" value="8">8</Button>
-                    <Button onClick={handleClick} id="nine" type="Button" value="9">9</Button>
+                        <Button onClick={handleClick} id="one" type="Button" value="1" >1</Button>
+                        <Button onClick={handleClick} id="two" type="Button" value="2">2</Button>
+                        <Button onClick={handleClick} id="three" type="Button" value="3">3</Button>
+                        <Button onClick={handleClick} id="four" type="Button" value="4">4</Button>
+                        <Button onClick={handleClick} id="five" type="Button" value="5">5</Button>
+                        <Button onClick={handleClick} id="six" type="Button" value="6">6</Button>
+                        <Button onClick={handleClick} id="seven" type="Button" value="7">7</Button>
+                        <Button onClick={handleClick} id="eight" type="Button" value="8">8</Button>
+                        <Button onClick={handleClick} id="nine" type="Button" value="9">9</Button>
 
-                    <Button onClick={handleClick} id="zero" type="Button" value="0">0</Button>
-                    <Button onClick={handleClick} id="decimal" type="Button" value=".">.</Button>
-                    <Button onClick={handleClick} id="clear" type="Button" equal="all-clear" value="all-clear">AC</Button>
+                        <Button onClick={handleClick} id="zero" type="Button" value="0">0</Button>
+                        <Button onClick={handleClick} className="decimal" id="decimal" type="Button" value=".">.</Button>
+                        <Button onClick={resetDisplay} className="all-clear" id="clear" type="Button" equal="all-clear" value="all-clear">AC</Button>
 
-                    <Button onClick={handleClick} id="equals" type="Button" equal="equal-sign" value="=">=</Button>
+                        <Button onClick={excOperation} className="equal-sing" id="equals" type="Button" equal="equal-sign" value="=">=</Button>
 
-                </CalculatorKeys>
-            </div>
-        </Keys>
+                    </CalculatorKeys>
+                </div>
+            </Keys>
+        </>
     )
 }
 
