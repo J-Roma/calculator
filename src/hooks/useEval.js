@@ -28,6 +28,7 @@ const useEval = () => {
         let x = evalDisplay + inputDisplay
         //setEvalDisplay((previusState) => previusState + inputDisplay)
         setEvalDisplay(eval(x))
+        setInputDisplay(0)
     }
     // Reset Display Operation
     const resetDisplay = () => {
